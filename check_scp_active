@@ -1,0 +1,27 @@
+#!/bin/bash
+
+TEST=$(ps -aux | grep scp | awk -F '$USER@$HOSTIPADD:' '{print $2}')
+
+active ()
+        {
+        echo "Transfer is currently active: $TEST"
+        exit 2
+        }
+
+inactive ()
+        {
+        echo "No active transfer."
+        exit 0
+        }
+
+main ()
+        {
+
+        if [[ $TEST = "/home/$USER/storage/example/directory/" ]]; then
+                active;
+        else
+                inactive;
+        fi
+
+        }
+main;
